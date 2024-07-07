@@ -1,0 +1,57 @@
+.userlistitem
+{
+    background-color: #E8E8E8;
+    color: black;
+    margin: 2%;
+    padding: 5%;
+    cursor: pointer;
+    flex-grow: 1;
+    width: 100%;
+    border-radius: 15px;
+    display: flex;
+}
+.userlistitem:hover
+{
+    background-color: #a19d9d;
+}
+.GoButton:hover
+{
+    background-color: #a19d9d;
+}
+.chatlistitem
+{
+    background-color: #E8E8E8;
+    color: black;
+    margin: 2%;
+    padding: 0% 5%;
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    height: 10vh;
+    border-radius: 15px;
+}
+
+.chatlistitem:hover
+{
+    background-color: #a19d9d;
+}
+.chatlistitem.chatselected
+{
+    background-color: rgb(56,178,172);
+}
+
+.ChatBoxHeader
+{
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    justify-content: space-between;
+}
+.GroupChatModalButton
+{
+    background-color: rgb(49,130,206);
+    color: white;
+    padding: 2%;
+    width: fit-content;
+}

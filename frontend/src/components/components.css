@@ -1,0 +1,44 @@
+.MyChats
+{
+    background-color: white;
+    border-radius: 10px;
+    height: 85vh;
+    margin: 2% 0% 0% 2%;
+    overflow: hidden;
+    width: 35%;
+}
+
+.MyChatsHeader
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3%;
+}
+.MyChatsHeader button
+{
+    background-color: rgb(237,242,247);
+    width: fit-content;
+    color: black;
+    padding: 2%;
+
+}
+.MyChatsHeader button:hover
+{
+    background-color: rgb(206, 210, 214);
+
+}
+.MyChatsList
+{
+    
+}
+.ChatBox
+{
+    background-color: white;
+    border-radius: 10px;
+    height: 85vh;
+    margin: 2% 0% 0% 2%;
+    overflow: hidden;
+    flex-grow: 1;
+    width: 35%;
+}

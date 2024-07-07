@@ -82,7 +82,16 @@ const guestDetails=async ()=>{
         console.log('some error');
       }
 }
+const passwordinputref=React.useRef();
 const [guest,setGuest]=React.useState({});
+const togglePassword=(event)=>{
+        const type = passwordinputref.current.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordinputref.current.setAttribute('type', type);
+        
+        // Toggle the icon
+        event.target.classList.toggle('fa-eye');
+        event.target.classList.toggle('fa-eye-slash');
+}
 useEffect(()=>{
   guestDetails();
 },[])
@@ -94,13 +103,15 @@ useEffect(()=>{
         {formik.touched.email && formik.errors.email ? (
          <div style={{color:'red'}}>{formik.errors.email}</div>
        ) : null}
+       <div class="password-container">
         <label htmlFor='password'>Password: </label>
-        <StyledInput type='password' onChange={formik.handleChange} value={formik.values.password} onBlur={formik.handleBlur} style={{width:'50%'}} placeholder='Enter Password' id='password'/>
+        <StyledInput ref={passwordinputref} type='password' onChange={formik.handleChange} value={formik.values.password} onBlur={formik.handleBlur} style={{width:'50%'}} placeholder='Enter Password' id='password'/>
         {formik.touched.password && formik.errors.password ? (
          <div style={{color:'red'}}>{formik.errors.password}</div>
        ) : null}
-        <i class="fa-solid fa-eye-slash"></i>
-        <Button loading={loading} style={{backgroundColor:'rgb(49,130,206)'}} type='submit'>login</Button>
+        <i onClick={togglePassword} className="fa-solid fa-eye"></i>
+        </div>
+        <Button loading={loading} style={{backgroundColor:'rgb(49,130,206)',marginTop:'2%'}} type='submit'>login</Button>
         <Button loading={loading} style={{backgroundColor:'rgb(203,51,51)',marginTop:'2%'}} type='button' onClick={()=>formik.setValues({...guest,password:'12345678'})}>Get Guest User Credentials</Button>
         </form>
     </div>

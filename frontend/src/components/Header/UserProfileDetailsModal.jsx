@@ -10,10 +10,10 @@ import {
   } from '@chakra-ui/react'
   import { Button } from '@chakra-ui/react'
 
-const UserProfileDetailsModal = ({ isOpen, onClose } ) => {
+const UserProfileDetailsModal = ({ isOpen, onClose,frienduser } ) => {
    
 
-const userdetails=JSON.parse(localStorage.getItem('userinfo'));
+const userdetails=Boolean(frienduser)?frienduser:JSON.parse(localStorage.getItem('userinfo'));
 
 return (
     <>

@@ -40,8 +40,9 @@ const authUser=asyncHandler(async (req,res)=>
 });
 
 const allUsers=asyncHandler(async(req,res)=>{
+    try{
     const keyword=req.query.search?{
-        $OR:[
+        $or:[
             {
                 name:{$regex: req.query.search, $options: "i"}
             },
@@ -52,5 +53,9 @@ const allUsers=asyncHandler(async(req,res)=>{
     }:{};
     const users=await User.find(keyword).find({_id:{$ne:req.user._id}});
     res.status(200).json(users);
+}catch(err)
+{
+    throw new Error('Error while fetching the users')
+}
 })
 module.exports={userRegister,authUser,allUsers}
