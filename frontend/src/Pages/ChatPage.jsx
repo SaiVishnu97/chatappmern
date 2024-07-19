@@ -11,7 +11,7 @@ const ChatPage = () => {
   return (
     <div>
         <Header/>
-        <div style={{display:'flex',justifyContent:'space-evenly'}}>
+        <div style={{display:'flex',justifyContent:'space-evenly',marginBottom:'2%',height:'80vh',overflowY:'hidden'}}>
         <MyChats/>
         <ChatBox/>
         </div>

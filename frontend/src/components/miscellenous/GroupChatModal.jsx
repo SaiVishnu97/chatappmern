@@ -16,6 +16,8 @@ import './miscellenous.css'
 import UserListItem from './UserListItem'
 import axios from 'axios'
 import useAutoComplete from './useAutoComplete'
+import { useDispatch } from 'react-redux'
+import { addNewChats } from 'state'
 
 const GroupChatModal = ({ isOpen, onClose }) => {
 
@@ -31,10 +33,9 @@ const GroupChatModal = ({ isOpen, onClose }) => {
     selectedusers,
     setSelectedUsers,
     actualuserslist,
-    setActualUsersList,
     currentuserdetails
   } = useAutoComplete();
-  
+  const dispatch=useDispatch();
   const createGroupChat=async()=>{
     try {
       setLoading(true)
@@ -63,6 +64,7 @@ const GroupChatModal = ({ isOpen, onClose }) => {
 
       });
       console.log(results.data);
+      dispatch(addNewChats(results.data));
       onClose();
     } catch (error) {
       toast({

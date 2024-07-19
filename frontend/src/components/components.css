@@ -2,12 +2,20 @@
 {
     background-color: white;
     border-radius: 10px;
-    height: 85vh;
+    height: 100%;
     margin: 2% 0% 0% 2%;
-    overflow: hidden;
-    width: 35%;
+    overflow-y: scroll;
+    overflow-x: hidden ;
+    flex-grow: 1;
 }
-
+.chatarea
+{
+    background-color: rgb(232,232,232);
+    border-radius: 10px;
+    margin: 2%;
+    height: 65%;
+    overflow-y: scroll;
+}
 .MyChatsHeader
 {
     display: flex;
@@ -30,15 +38,51 @@
 }
 .MyChatsList
 {
-    
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 .ChatBox
 {
     background-color: white;
     border-radius: 10px;
-    height: 85vh;
     margin: 2% 0% 0% 2%;
-    overflow: hidden;
-    flex-grow: 1;
+    flex-grow: 3;
     width: 35%;
+    overflow-y: scroll;
+    height: 100%;
+}
+.chatbox-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    top: 83vh;
+    width: 63%;
+}
+
+
+
+.chatbox-input button {
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.sendicon
+{
+    position: fixed;
+    top: 87vh;
+    font-size: larger;
+    right: 30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+}
+.chatbox-input button:hover {
+    background-color: #0056b3;
 }

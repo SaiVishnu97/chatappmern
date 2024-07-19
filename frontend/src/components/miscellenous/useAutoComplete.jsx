@@ -65,7 +65,6 @@ const useAutoComplete = () => {
     {
         setUsersList([]);
         setActualUsersList([]);
-        setSelectedUsers([]);
     }
     return ()=>controller.abort();
   },[userquery,groupchatdetails]);

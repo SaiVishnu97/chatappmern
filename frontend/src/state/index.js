@@ -5,7 +5,8 @@ const initialState = {
     mychats:[],
     frienduser:null,
     isGroupChatSelected: false,
-    groupchatdata:null
+    groupchatdata:null,
+    currentchatid:null
 }
 const chatSlice=createSlice({
     name: 'chatapp',

@@ -40,7 +40,12 @@
     padding: 10px;
     cursor: pointer;
 }
-.selecttype span:hover
+.selecttype span:hover:not(.AuthTypeSelected)
+{
+    background-color: rgb(202, 205, 207);
+   
+}
+.selecttype .AuthTypeSelected
 {
     background-color: rgb(190,227,248);
     border: 3px solid rgb(118, 151, 170);

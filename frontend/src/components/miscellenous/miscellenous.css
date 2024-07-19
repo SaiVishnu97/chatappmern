@@ -28,7 +28,7 @@
     display: flex;
     justify-content: start;
     width: 100%;
-    height: 10vh;
+    height: 5rem !important;
     border-radius: 15px;
 }
 
@@ -45,8 +45,11 @@
 {
     display: flex;
     align-items: center;
-    padding: 2%;
+    padding: 2% 2% 0 2%;
     justify-content: space-between;
+    position: sticky;
+    background-color: white;
+    top: 0px;
 }
 .GroupChatModalButton
 {

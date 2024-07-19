@@ -17,8 +17,8 @@ const ChatBoxHeader = ({frienduser,groupchatdetails}) => {
 event.target.style.background = '#a19d9d'}
 onMouseOut={(event)=>event.target.style.background='#E8E8E8'} style={{width:'max-content',color:'black',padding:'1%',fontWeight:'400' ,backgroundColor:'#E8E8E8'}}><i className="fa-solid fa-eye"></i>
         </Button>
-        {frienduser&&<UserProfileDetailsModal isOpen={isOpen} onClose={onClose} frienduser={frienduser}/>}
-        {groupchatdetails&&<GroupChatProfile isOpen={isOpen} onClose={onClose} groupchatdetails={groupchatdetails}/>}
+        {frienduser&&isOpen&&<UserProfileDetailsModal isOpen={isOpen} onClose={onClose} frienduser={frienduser}/>}
+        {groupchatdetails&&isOpen&&<GroupChatProfile isOpen={isOpen} onClose={onClose} groupchatdetails={groupchatdetails}/>}
 
     </div>
   )

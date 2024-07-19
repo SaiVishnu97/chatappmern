@@ -13,16 +13,17 @@ export const ChatsListItem = ({chatdetails}) => {
   const selectChat=()=>{
     dispatch(addNewProperties({frienduser:otheruser}));
     dispatch(addNewProperties({groupchatdata:null}));
-
+    dispatch(addNewProperties({currentchatid: chatdetails._id}));
   }
+  const userincaps=otheruser.name.charAt(0).toUpperCase()+otheruser.name.slice(1);
   return (
     <div className={`chatlistitem ${isSelected?'chatselected':''}`} onClick={selectChat}>
       <div style={{paddingRight:'2%'}}>
-      <img src={otheruser.pic} style={{borderRadius:'50%',overflow:'hidden',height:'100%'}}></img>
+      <img src={otheruser.pic} style={{borderRadius:'50%',overflow:'hidden',height:'35px'}}></img>
       </div>
       <div>
-      <div style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{otheruser.name.charAt(0).toUpperCase()+otheruser.name.slice(1)}</div>
-      {chatdetails.latestMessage?.content}
+      <div style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{userincaps}</div>
+      {chatdetails.latestMessage?chatdetails.latestMessage.sender._id===currentuser._id?'You':userincaps:''}:{chatdetails.latestMessage?.content.slice(0,20)}
       </div>
     </div>
   )
@@ -33,17 +34,21 @@ export const GroupChatsListItem = ({groupchatdetails})=>{
   const selectedgroupchat=useSelector((state)=>state.chatapp.groupchatdata);
   const isSelected=selectedgroupchat?groupchatdetails._id===selectedgroupchat._id:false;
   const dispatch=useDispatch()
+  const currentuser=JSON.parse(localStorage.getItem('userinfo'));
   const selectChat=()=>{
     dispatch(addNewProperties({groupchatdata:groupchatdetails}));
     dispatch(addNewProperties({frienduser:null}));
+    dispatch(addNewProperties({currentchatid: groupchatdetails._id}));
+
   }
+  const groupincaps=groupchatdetails.chatName.charAt(0).toUpperCase()+groupchatdetails.chatName.slice(1);
   return( <div className={`chatlistitem ${isSelected?'chatselected':''}`} onClick={selectChat}> 
       <div >
       <img style={{borderRadius:'50%',overflow:'hidden',height:'35px'}}></img>
       </div>
       <div>
       <h3 style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{groupchatdetails.chatName.charAt(0).toUpperCase()+groupchatdetails.chatName.slice(1)}</h3>
-      {groupchatdetails.latestMessage?.content}
+      {groupchatdetails.latestMessage?groupchatdetails.latestMessage.sender._id===currentuser._id?'You':groupincaps:''}:{groupchatdetails.latestMessage?.content.slice(0,20)}
       </div>
     </div>);
 }

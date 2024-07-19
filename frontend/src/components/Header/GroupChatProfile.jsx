@@ -11,14 +11,12 @@ import {
     Spinner
   } from '@chakra-ui/react'
 import axios from 'axios'
-import { useToast } from '@chakra-ui/react'
 import UserListItem from 'components/miscellenous/UserListItem'
 
 import { Button } from '@chakra-ui/react'
 import StyledInput from 'components/Elements/StyledInput'
 import { useDispatch } from 'react-redux'
 import { updateChatData,addNewProperties } from 'state'
-import { debounce } from 'lodash'
 import useAutoComplete from 'components/miscellenous/useAutoComplete'
 
 
@@ -213,8 +211,8 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
                 })}
               </div>
             <div style={{display:'flex',justifyContent:'space-between'}}>
-            <StyledInput placeholder='Chat Name' style={{width:'100%',marginRight:'2%',flexGrow: '1'}} onChange={(e)=>setChatName(e.target.value)} value={chatname}/>
-            {loading?<Spinner/>:<Button colorScheme='purple' variant='solid' style={{width:'fit-content'}} onClick={renameChat}>
+            <StyledInput placeholder='Chat Name' onChange={(e)=>setChatName(e.target.value)} value={chatname}/>
+            {loading?<Spinner/>:<Button colorScheme='purple' variant='solid' style={{marginLeft:'10px',flexGrow:'1'}} onClick={renameChat}>
                 Rename chat
             </Button>}
             </div>
@@ -228,7 +226,11 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
                 })}
               </div>
               <div style={{display:'flex',margin:'2%',flexDirection:'column', alignItems:'center'}}>
-            {loading?<Spinner thickness='4px' size={'xl'}/>:userslist.map((val)=><UserListItem  userdetails={val}  onClick={()=>selectUsers(val)}/>)}
+            {loading?<Spinner thickness='4px' size={'xl'}/>:(userslist.length>0||userquery==='')?userslist.map((val)=><UserListItem  userdetails={val}  onClick={()=>selectUsers(val)}/>)
+          :<div style={{fontSize:'1.8em' ,fontWeight:'700', textAlign:'center'}}>
+          No users found
+          </div>  
+          }
             </div>
           </div>
         </ModalBody>

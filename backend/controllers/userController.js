@@ -33,7 +33,8 @@ const authUser=asyncHandler(async (req,res)=>
             name: user.name,
             email: user.email,
             pic: user.pic,
-            token: generateToken(user._id)
+            token: generateToken(user._id),
+            _id:user._id
         });
     }
     throw new Error("Invalid credentials")
