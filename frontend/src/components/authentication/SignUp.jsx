@@ -19,7 +19,6 @@ const SignUp = () => {
     const onSubmit= async(values, { resetForm }) => {
       try{
       setLoading(true);
-      console.log(values);
       const formdata=new FormData();
       if(img===undefined)
       {
@@ -36,7 +35,6 @@ const SignUp = () => {
       formdata.append('file',img);
       formdata.append('upload_preset','chat-app');
       formdata.append('cloud_name','doopc2ufu');
-      console.log(formdata);
       const responseimage=await fetch('https://api.cloudinary.com/v1_1/doopc2ufu/image/upload',{
         method :'POST',
         body: formdata

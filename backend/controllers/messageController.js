@@ -6,7 +6,6 @@ const Chat = require("../models/ChatModel");
 const sendMessages=expressAsyncHandler(async(req,res)=>{
     try {
         const {chatid,content}=req.body;
-        console.log(chatid,content);
         if(!chatid||!content)
         {
             throw new Error('Invalid request');

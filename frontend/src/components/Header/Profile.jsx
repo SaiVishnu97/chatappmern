@@ -28,12 +28,12 @@ const Profile = () => {
     as={Button} rightIcon={<ChevronDownIcon />}
     colorScheme="white"
     color='black'
-    style={{display:'flex',alignItems:'center',width:'100%'}}
+    style={{display:'flex',alignItems:'center',width:'100%',padding:'0',width:'fit-content'}}
     _hover={{ bg: 'gray.400' }}
     _expanded={{ bg: 'blue.400' }}
     _focus={{ boxShadow: 'outline' }}
   >
-    {userdetails.pic?<img style={{borderRadius:'50%',overflow:'hidden',height:'35px'}} src={userdetails.pic}/>:<i class="fa-solid fa-circle-user" style={{color:'rgb(224,224,224)',fontSize:'25px',marginRight:'10px'}}></i>}
+    {userdetails.pic?<img className='profile-pic' style={{flexGrow:'1',height:'40px',width:'40px',textAlign:'center'}} src={userdetails.pic}/>:<i class="fa-solid fa-circle-user" style={{color:'rgb(224,224,224)',fontSize:'25px',marginRight:'10px'}}></i>}
   </MenuButton>
   <MenuList>
     <MenuItem onClick={onOpen}>My Profile</MenuItem>

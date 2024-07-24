@@ -63,7 +63,6 @@ const GroupChatModal = ({ isOpen, onClose }) => {
         position: 'top'
 
       });
-      console.log(results.data);
       dispatch(addNewChats(results.data));
       onClose();
     } catch (error) {
@@ -115,7 +114,11 @@ const GroupChatModal = ({ isOpen, onClose }) => {
               </div>
             </div>
             <div style={{display:'flex',margin:'2%',flexDirection:'column', alignItems:'center'}}>
-            {loading?<Spinner thickness='4px' size={'xl'}/>:userslist.map((val)=><UserListItem  userdetails={val}  onClick={()=>selectUsers(val)}/>)}
+            {loading?<Spinner thickness='4px' size={'xl'}/>:userslist.map((val)=>{
+              if(userslist._id===currentuserdetails._id)
+                return (<></>)
+              return <UserListItem  userdetails={val}  onClick={()=>selectUsers(val)}/>
+              })}
             </div>
         </ModalBody>
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewProperties } from 'state';
 
-export const ChatsListItem = ({chatdetails}) => {
+export const ChatsListItem = ({chatdetails,setSelectAllChats}) => {
     
 
   const currentuser=JSON.parse(localStorage.getItem('userinfo'));
@@ -13,13 +13,14 @@ export const ChatsListItem = ({chatdetails}) => {
   const selectChat=()=>{
     dispatch(addNewProperties({frienduser:otheruser}));
     dispatch(addNewProperties({groupchatdata:null}));
-    dispatch(addNewProperties({currentchatid: chatdetails._id}));
+    dispatch(addNewProperties({currentchat: chatdetails}));
+    setSelectAllChats(false);
   }
   const userincaps=otheruser.name.charAt(0).toUpperCase()+otheruser.name.slice(1);
   return (
     <div className={`chatlistitem ${isSelected?'chatselected':''}`} onClick={selectChat}>
       <div style={{paddingRight:'2%'}}>
-      <img src={otheruser.pic} style={{borderRadius:'50%',overflow:'hidden',height:'35px'}}></img>
+      <img src={otheruser.pic} style={{borderRadius:'50%',overflow:'hidden',height:'60px'}}></img>
       </div>
       <div>
       <div style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{userincaps}</div>
@@ -29,7 +30,7 @@ export const ChatsListItem = ({chatdetails}) => {
   )
 }
 
-export const GroupChatsListItem = ({groupchatdetails})=>{
+export const GroupChatsListItem = ({groupchatdetails,setSelectAllChats})=>{
 
   const selectedgroupchat=useSelector((state)=>state.chatapp.groupchatdata);
   const isSelected=selectedgroupchat?groupchatdetails._id===selectedgroupchat._id:false;
@@ -38,17 +39,19 @@ export const GroupChatsListItem = ({groupchatdetails})=>{
   const selectChat=()=>{
     dispatch(addNewProperties({groupchatdata:groupchatdetails}));
     dispatch(addNewProperties({frienduser:null}));
-    dispatch(addNewProperties({currentchatid: groupchatdetails._id}));
+    dispatch(addNewProperties({currentchat: groupchatdetails}));
+    setSelectAllChats(false)
 
   }
   const groupincaps=groupchatdetails.chatName.charAt(0).toUpperCase()+groupchatdetails.chatName.slice(1);
+  const sender=groupchatdetails.latestMessage.sender.name.charAt(0).toUpperCase()+groupchatdetails.latestMessage.sender.name.slice(1)
   return( <div className={`chatlistitem ${isSelected?'chatselected':''}`} onClick={selectChat}> 
       <div >
       <img style={{borderRadius:'50%',overflow:'hidden',height:'35px'}}></img>
       </div>
       <div>
       <h3 style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{groupchatdetails.chatName.charAt(0).toUpperCase()+groupchatdetails.chatName.slice(1)}</h3>
-      {groupchatdetails.latestMessage?groupchatdetails.latestMessage.sender._id===currentuser._id?'You':groupincaps:''}:{groupchatdetails.latestMessage?.content.slice(0,20)}
+      {groupchatdetails.latestMessage?groupchatdetails.latestMessage.sender._id===currentuser._id?'You':sender:''}:{groupchatdetails.latestMessage?.content.slice(0,20)}
       </div>
     </div>);
 }

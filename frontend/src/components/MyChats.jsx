@@ -9,8 +9,9 @@ import {ChatsListItem,GroupChatsListItem} from './miscellenous/ChatsListItem';
 import Button from './Elements/Button';
 import GroupChatModal from './miscellenous/GroupChatModal';
 
-const MyChats = () => {
+const MyChats = ({selectallchats,setSelectAllChats}) => {
   const mychats=useSelector((state)=>state.chatapp.mychats);
+  const currentchat=useSelector((state)=>state.chatapp.currentchat);
   const dispatch=useDispatch();
   const toast=useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,8 +29,22 @@ const MyChats = () => {
         throw new Error("Invalid chats")
       dispatch(addNewProperties({mychats:results.data}));
       // const frienduser=results.data[0].users.filter((val)=>val.email!==currentuserdetails.email)[0];
-      
-      // dispatch(addNewProperties({frienduser}));
+      if(results.data.length)
+      {
+        dispatch(addNewProperties({currentchat:results.data[0]}));
+        if(!results.data[0].isGroupChat)
+        { 
+          let frienduser=results.data[0].users.filter((val)=>val.email!==currentuserdetails.email)[0]
+          dispatch(addNewProperties({frienduser}));
+          dispatch(addNewProperties({groupchatdata:null}));
+        }
+        else
+        {
+          dispatch(addNewProperties({groupchatdata:results.data[0]}));
+          dispatch(addNewProperties({frienduser:null}));
+        }
+
+      }
 
     }catch(err)
     {
@@ -47,7 +62,21 @@ const MyChats = () => {
   React.useEffect(()=>{
     fetchCurrentUserChats();
   },[])
+  // React.useEffect(()=>{
+  //   if(!currentchat)
+  //     fetchCurrentUserChats();
+  // },[mychats])
   return (
+    <>
+    <style>
+      {`
+      @media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+        .MyChats {
+         display: ${selectallchats?'block':'none'};
+        }
+    `}
+    </style>
     <div className='MyChats'>
       <div className='MyChatsHeader'>
         <span style={{fontSize:'1.5em',fontWeight:'500'}}>
@@ -60,12 +89,12 @@ const MyChats = () => {
       
       {Boolean(mychats)&&mychats.map((val)=>{
         if(!val.isGroupChat)
-        return <ChatsListItem chatdetails={val}/>
-        return <GroupChatsListItem groupchatdetails={val}/>})
+        return <ChatsListItem chatdetails={val} setSelectAllChats={setSelectAllChats}/>
+        return <GroupChatsListItem groupchatdetails={val} setSelectAllChats={setSelectAllChats}/>})
         }
     </div>
     </div>
-    
+    </>
   )
 }
 

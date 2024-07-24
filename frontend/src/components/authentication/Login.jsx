@@ -77,10 +77,17 @@ const guestDetails=async ()=>{
   const result=await response.json();
   setGuest(result);
   setLoading(false);
-     }catch(err)
+     }
+     catch(err)
       {
-        console.log('some error');
-      }
+        toast({
+          title: 'Unable to fetch the guest details',
+          description: err.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+          position: 'top'})
+        }
 }
 const passwordinputref=React.useRef();
 const [guest,setGuest]=React.useState({});

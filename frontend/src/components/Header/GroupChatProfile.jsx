@@ -66,7 +66,6 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
               position: 'top'
       
             });
-            console.log(results.data);
             dispatch(updateChatData(results.data));
             dispatch(addNewProperties({groupchatdata:results.data}));
           } catch (error) {
@@ -114,7 +113,6 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
           position: 'top'
   
         });
-        console.log(results.data);
         dispatch(updateChatData(results.data));
         dispatch(addNewProperties({groupchatdata:results.data}));
       } catch (error) {
@@ -156,7 +154,6 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
           position: 'top'
   
         });
-        console.log(results.data);
         dispatch(updateChatData(results.data));
         dispatch(addNewProperties({groupchatdata:results.data}));
         setSelectedUsers([]);
@@ -206,7 +203,7 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
                 {groupusers.map((val,ind)=>{
                   return(<div style={{backgroundColor:'purple',color:'white',borderRadius:'20px',padding:'2%',margin:'2%', display:'flex'}} key={ind}>
                     {val.name}
-                    {isAdmin&&<CloseButton style={{marginLeft:'2%'}}  size='sm' colorScheme='whiteAlpha' onClick={()=>removeExistingUsers(val)} />}
+                    {isAdmin&&val._id!==currentuserdetails._id&&<CloseButton style={{marginLeft:'2%'}}  size='sm' colorScheme='whiteAlpha' onClick={()=>removeExistingUsers(val)} />}
                   </div>)
                 })}
               </div>
@@ -221,7 +218,7 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
                 {selectedusers.map((val,ind)=>{
                   return(<div style={{backgroundColor:'purple',color:'white',borderRadius:'20px',padding:'2%',marginRight:'2%', display:'flex'}} key={ind}>
                     {val.name}
-                    <CloseButton style={{marginLeft:'2%'}}  size='sm' colorScheme='whiteAlpha' onClick={()=>removeSelectedUsers(val)}/>
+                   <CloseButton style={{marginLeft:'2%'}}  size='sm' colorScheme='whiteAlpha' onClick={()=>removeSelectedUsers(val)}/>
                   </div>)
                 })}
               </div>
@@ -240,6 +237,7 @@ const GroupChatProfile = ({ isOpen, onClose,groupchatdetails }) => {
             {loading?<Spinner/>:<Button colorScheme='blue' style={{width:'fit-content'}} onClick={addUsersToTheGroup}>
             Add users
             </Button>}
+            {!loading&&!isAdmin&&<Button colorScheme='red' style={{width:'fit-content'}} onClick={removeExistingUsers(currentuserdetails)}></Button>}
         </ModalFooter>
         </ModalContent>
     </Modal>

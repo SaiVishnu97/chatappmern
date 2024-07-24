@@ -29,7 +29,6 @@ const useAutoComplete = () => {
         {
             throw new Error("Unable to look at the users")
         }
-        console.log(userquery);
         if(Boolean(userquery))
         setActualUsersList(result.data);
         else

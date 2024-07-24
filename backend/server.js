@@ -12,9 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 connectDB();
-// app.get('/',(req,res)=>{
-//     console.log('Home page backend');
-// });
+
 
 app.use('/api/chats',ChatRouter)
 
@@ -39,14 +37,42 @@ const io = require('socket.io')(server,{
 });
 io.on('connection',(socket)=>{
     socket.emit('connection establishment from the server');
+    console.log('one more user joined the chat with socketid:',socket.id);
     console.log("Connected to the socket.io");
-    socket.on('User setup',(chatid)=>{
-        socket.join(chatid);
+    socket.on('User setup',(userid)=>{
+        console.log('user joined',userid)
+        socket.join(userid);
         socket.emit('Chat connection acknowlegement');
     });
-    socket.on('new message sent',(wholemessagewithchatid)=>{
-        const {chatid,messagedetails} = JSON.parse(wholemessagewithchatid);
-        console.log('new message sent');
-        socket.to(chatid).emit('Message received');
+    // socket.on('Connect to the chat',(chatid)=>{
+    //     socket.join(chatid);
+    //     console.log('User with the '+userid+' has joined the socket.io')
+    // })
+    socket.on('Is typing',(currentchatwithuser)=>{
+        const {currentchat,currentuser} = JSON.parse(currentchatwithuser);
+        currentchat.users.forEach(user => {
+            if(user._id!==currentuser._id)
+            socket.to(user._id).emit('Others typing',currentuser,currentchat);
+
+        });
     })
+    socket.on('stop typing',(currentchatwithuser)=>{
+        const {currentchat,currentuser} = JSON.parse(currentchatwithuser);
+        currentchat.users.forEach(user => {
+            if(user._id!==currentuser._id)
+            socket.to(user._id).emit('Others stop typing',currentuser);
+
+        });
+    })
+    socket.on('new message sent',(wholemessagewithchatid)=>{
+        const {currentchat,messagedetails} = JSON.parse(wholemessagewithchatid);
+        currentchat.users.forEach(user => {
+            if(user._id!==messagedetails.sender._id)
+            socket.to(user._id).emit('Message received',messagedetails,currentchat);
+
+        });
+    })
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
 })

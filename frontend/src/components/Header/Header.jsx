@@ -4,15 +4,13 @@ import { SearchIcon } from '@chakra-ui/icons'
 import Profile from './Profile'
 import { useDisclosure } from '@chakra-ui/react'
 import SideDrawer from './SideDrawer'
+import './HeaderStyles.css'
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <div style={{width:'100%',backgroundColor:'white',
-    display:'flex',justifyContent:'space-between',
-    alignItems:'center',
-    padding:'1%',border:'5px solid rgb(226,232,240)'}}>
+    <div className='Header'>
     <div>
     <Button style={{height:'30px', color:'black',padding:'20px'}} onMouseOver={(event)=>
 event.target.style.background = 'rgb(226,232,240)'}
@@ -24,7 +22,7 @@ onClick={onOpen}
     <SideDrawer isOpen={isOpen} onClose={onClose}/>
     </div>
     <h2 style={{fontSize:'larger',fontWeight:'700'}}>Talk-A-Tive</h2>
-<div style={{width:'10%',display:'flex',justifyContent:'space-around',alignItems:'center'}}>
+<div className='profile'>
 <div><i className="fa-solid fa-bell fa-xl" ></i>
 </div>
 <Profile/>
