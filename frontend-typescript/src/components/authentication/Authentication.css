@@ -1,0 +1,52 @@
+.Authentication
+{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 500px;
+    grid-gap: 20px;
+    font-family: "Work sans";
+    
+}
+.AppName
+{
+    margin-top: 30px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    border-radius: 10px;
+    background-color: white;
+}
+.loginsection
+{
+    padding: 10px;
+    border-radius: 5%;
+    background-color: white;
+
+}
+.selecttype
+{
+    display: flex;
+    justify-content: space-around;
+}
+.selecttype span
+{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+.selecttype span:hover:not(.AuthTypeSelected)
+{
+    background-color: rgb(202, 205, 207);
+   
+}
+.selecttype .AuthTypeSelected
+{
+    background-color: rgb(190,227,248);
+    border: 3px solid rgb(118, 151, 170);
+}

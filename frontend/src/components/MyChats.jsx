@@ -29,6 +29,7 @@ const MyChats = ({selectallchats,setSelectAllChats}) => {
         throw new Error("Invalid chats")
       dispatch(addNewProperties({mychats:results.data}));
       // const frienduser=results.data[0].users.filter((val)=>val.email!==currentuserdetails.email)[0];
+      console.log(results.data);
       if(results.data.length)
       {
         dispatch(addNewProperties({currentchat:results.data[0]}));

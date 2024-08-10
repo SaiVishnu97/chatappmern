@@ -1,0 +1,23 @@
+.loginform
+{
+    margin: 25px;
+}
+.signupform
+{
+    margin: 25px;
+}
+.password-container {
+    position: relative;
+}
+
+.password-container #password {
+    padding-right: 30px; /* Adjust padding to make space for the icon */
+}
+.password-container i {
+    position: absolute;
+    top: 50px;
+    font-size: larger;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

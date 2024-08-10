@@ -64,8 +64,8 @@ io.on('connection',(socket)=>{
 
         });
     })
-    socket.on('new message sent',(wholemessagewithchatid)=>{
-        const {currentchat,messagedetails} = JSON.parse(wholemessagewithchatid);
+    socket.on('new message sent',(wholemessagewithchat)=>{
+        const {currentchat,messagedetails} = JSON.parse(wholemessagewithchat);
         currentchat.users.forEach(user => {
             if(user._id!==messagedetails.sender._id)
             socket.to(user._id).emit('Message received',messagedetails,currentchat);

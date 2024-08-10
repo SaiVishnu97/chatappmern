@@ -1,0 +1,24 @@
+.ChatBoxParent
+{
+    background-color: white;
+    border-radius: 10px;
+    margin: 2% 0% 0% 2%;
+    flex-grow: 3;
+    width: 35% !important;
+    /* overflow-y: scroll; */
+    height: 100%;
+}
+.MyChatsParent
+{
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    margin: 2% 0% 0% 2%;
+    overflow-y: scroll;
+    overflow-x: hidden ;
+    flex-grow: 1;
+}
+.chatsmain
+{
+    height: 95%;
+}

@@ -19,7 +19,6 @@ const accessChat=asyncHandler(async(req,res)=>{
     .populate("users", "-password")
     .populate("latestMessage");
 
-    console.log(isChat);
   isChat = await User.populate(isChat, {
     path: "latestMessage.sender",
     select: "name pic email",
@@ -79,7 +78,6 @@ const createGroupChat=asyncHandler(async(req,res)=>{
       throw new Error("Please provide both the chat name and the users for the group chat");
     }
     let users =req.body.users;
-    // console.log(users)
     if(users.length<2)
     {
       return res
