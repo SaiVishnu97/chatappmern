@@ -28,7 +28,7 @@ export const ChatsListItem:React.FC<ChatsListItemProps> = ({chatdetails,setSelec
       </div>
       <div>
       <div style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{userincaps}</div>
-      {chatdetails.latestMessage?chatdetails.latestMessage.sender._id===currentuser._id?'You':userincaps:''}:{chatdetails.latestMessage?.content.slice(0,20)}
+      {chatdetails.latestMessage?((chatdetails.latestMessage.sender._id===currentuser._id?'You':userincaps)+' : '+chatdetails.latestMessage?.content.slice(0,20)):''}
       </div>
     </div>
   )
@@ -56,7 +56,7 @@ export const GroupChatsListItem:React.FC<GroupChatsListItemProps> = ({groupchatd
       </div>
       <div>
       <h3 style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{groupchatdetails.chatName.charAt(0).toUpperCase()+groupchatdetails.chatName.slice(1)}</h3>
-      {groupchatdetails.latestMessage?(groupchatdetails.latestMessage.sender._id===currentuser._id?'You':sender+' : '+groupchatdetails.latestMessage.content.slice(0,20)):''}
+      {groupchatdetails.latestMessage?((groupchatdetails.latestMessage.sender._id===currentuser._id?'You':sender)+' : '+groupchatdetails.latestMessage.content.slice(0,20)):''}
       </div>
     </div>);
 }
