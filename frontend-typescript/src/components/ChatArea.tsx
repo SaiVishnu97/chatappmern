@@ -126,8 +126,9 @@ const ChatArea = () => {
     </div>
 
     <div className="chatbox-input">
-    <i className="fa-solid fa-paper-plane fa-xl sendicon" onClick={handleMessageSending}></i>
       <StyledInput type="text" placeholder="Type a message..." className='InputStyles' onChange={handleInput} onKeyDown={(event)=>{if(event.keyCode===13)handleMessageSending()}} value={newmessage}/>
+      <i className="fa-solid fa-paper-plane fa-xl sendicon" onClick={handleMessageSending}></i>
+
         </div>
     </>
     

@@ -4,6 +4,7 @@ import UserProfileDetailsModal from 'components/Header/UserProfileDetailsModal';
 import { useDisclosure } from '@chakra-ui/react';
 import GroupChatProfile from 'components/Header/GroupChatProfile';
 import { Chat, User } from 'CommonTypes';
+import './miscellenous.css'
 
 type ChatBoxHeaderProps={
   frienduser: User,

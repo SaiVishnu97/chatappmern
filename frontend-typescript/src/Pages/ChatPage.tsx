@@ -32,8 +32,7 @@ React.useEffect(()=>{
       justify-content: space-evenly;
       margin-bottom: 2%;
       margin-top: 2%;
-      height: 80vh;
-      overflow-y: hidden;
+      height: 75vh;
       }
        @media only screen and (max-width: 768px) {
   /* For mobile phones: */

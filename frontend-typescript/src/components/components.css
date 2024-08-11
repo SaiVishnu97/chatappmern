@@ -4,10 +4,14 @@
     border-radius: 10px;
     height: 100%;
     margin: 2% 0% 0% 2%;
-    overflow-x: hidden ;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
     flex-grow: 1;
+    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.chatareaparent
+.ChatAreaParent
 {
     height: 100%;
 }
@@ -16,8 +20,8 @@
     background-color: rgb(232,232,232);
     border-radius: 10px;
     margin: 2%;
-    height: 65%;
-    overflow-y: scroll !important;
+    height: 85%;
+    overflow-y: scroll !important; 
 }
 .MyChatsHeader
 {
@@ -41,11 +45,12 @@
 }
 .MyChatsList
 {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
     justify-content: start;
+    overflow-y:scroll ;
 }
 .ChatBox
 {
@@ -54,38 +59,25 @@
     margin: 2% 0% 0% 2%;
     width: 95% !important;
     /* overflow-y: scroll; */
-    height: 100%;
+    height: 77% !important;
 }
 .chatbox-input {
     display: flex;
     border-top: 1px solid #ddd;
-    position: fixed;
-    top: 87vh;
+    flex-direction: column;
     width: 63%;
 }
 i{
     cursor: pointer;
 }
 
-
-.chatbox-input button {
-    padding: 10px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
 .sendicon
 {
-    position: fixed;
-    top: 90vh;
+    position: relative;
     font-size: larger;
-    right: 30px;
-    transform: translateY(-50%);
+    bottom: 50px;
+    left: 60vw;
     cursor: pointer;
-
 }
 .chatbox-input button:hover {
     background-color: #0056b3;
@@ -100,25 +92,12 @@ i{
     font-size: 16px !important;
     width: 80vw !important;
 }
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    .chatbox-input {
-        display: flex;
-        border-top: 1px solid #ddd;
-        position: fixed;
-        top: 83vh;
-        width: 100vw;
-    }
+@media  (max-width: 768px) {
     .sendicon
-    {
-        position: fixed;
-        top: 87vh;
-        font-size: larger;
-        right: 30px;
-        transform: translateY(-50%);
-        cursor: pointer;
-
+    {  
+        left: 90vw;
     }
+
     .InputStyles
     {
         padding: 10px;
@@ -131,13 +110,6 @@ i{
     }
     .chatarea
     {
-        height: 65%;
-    }
-}
-@media (max-width: 500px)
-{
-    .chatarea
-    {
-        height: 70%;
+        height: 90%;
     }
 }

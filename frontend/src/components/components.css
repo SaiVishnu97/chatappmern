@@ -4,7 +4,7 @@
     border-radius: 10px;
     height: 100%;
     margin: 2% 0% 0% 2%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x: hidden ;
     flex-grow: 1;
 }
@@ -14,7 +14,7 @@
     border-radius: 10px;
     margin: 2%;
     height: 65%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 .MyChatsHeader
 {
@@ -38,7 +38,7 @@
 }
 .MyChatsList
 {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     overflow-x: hidden;
     display: flex;
     flex-direction: column;

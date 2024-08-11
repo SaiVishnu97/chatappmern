@@ -46,11 +46,10 @@
 {
     display: flex;
     align-items: center;
-    padding: 2% 2% 0 2%;
     justify-content: space-between;
-    position: sticky;
+    /* position: sticky; */
     background-color: white;
-    top: 0px;
+    height: fit-content
 }
 .GroupChatModalButton
 {

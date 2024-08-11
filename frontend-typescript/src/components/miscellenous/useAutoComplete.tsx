@@ -2,7 +2,6 @@ import React from 'react'
 import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { debounce } from 'lodash';
-import { useSelector } from 'react-redux';
 import { User } from 'CommonTypes';
 import { useAppSelector } from 'state';
 
