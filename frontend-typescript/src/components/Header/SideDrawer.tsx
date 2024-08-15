@@ -41,7 +41,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({isOpen,onClose}) => {
         }
       }
       onClose();
-      const results: AxiosResponse<Chat>=await axios.post(process.env.REACT_APP_BACKENDURL+'/api/chats',{userId:userdetails._id},config);
+      const results: AxiosResponse<Chat>=await axios.post(`${process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:''}/api/chats`,{userId:userdetails._id},config);
       if(results.status>=400)
         throw new Error("User didn't exist");
       dispatch(addNewChats(results.data));
@@ -66,7 +66,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({isOpen,onClose}) => {
     try
     {
         setLoading(true);
-        const result = await axios.get(process.env.REACT_APP_BACKENDURL+'/api/users/login',{
+        const result = await axios.get(`${process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:''}/api/users/login`,{
           headers:{
             authorization: "Bearer "+currentuserdetails.token
           },

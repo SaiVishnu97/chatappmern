@@ -49,7 +49,7 @@ const SignUp = () => {
         throw new Error('Unable to upload the image')
       const imageurldata=await responseimage.json();
       values.pic=imageurldata.secure_url
-      const response=await fetch('http://localhost:5000/api/users',{headers:{
+      const response=await fetch(`${process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:''}/api/users`,{headers:{
         'Content-Type':'application/json', 
       },
       method: 'POST',

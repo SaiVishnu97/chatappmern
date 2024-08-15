@@ -8,7 +8,7 @@ import { io, Socket } from 'socket.io-client';
 import { ClientToServerEvents, ServerToClientEvents } from 'CommonTypes';
 import { addNewProperties, reShuffleMyChatsAfterDeletion, useAppDispatch } from 'state/index';
 import { useToast } from '@chakra-ui/react';
-export let socket:Socket<ServerToClientEvents, ClientToServerEvents>=io('http://localhost:5000');
+export let socket:Socket<ServerToClientEvents, ClientToServerEvents>=io(process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:'');
 
 const ChatPage = () => {
 

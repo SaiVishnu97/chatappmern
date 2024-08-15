@@ -4,6 +4,7 @@ import './App.css';
 import { Routes,Route } from 'react-router-dom';
 import ChatPage from 'Pages/ChatPage';
 
+if(process.env.REACT_APP_BACKENDURL)
   axios.defaults.baseURL = 'http://localhost:5000'
 function App() {
   return (
