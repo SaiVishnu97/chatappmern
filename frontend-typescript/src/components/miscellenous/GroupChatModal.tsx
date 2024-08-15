@@ -57,7 +57,7 @@ const GroupChatModal:React.FC<GroupChatModalProps> = ({ isOpen, onClose }) => {
         throw new Error('Please provide the new group chat name');
       if(selectedusers.length<2)
         throw new Error('Atleast 3 members are required to create a group chat');
-      const results=await axios.post(process.env.REACT_APP_BACKENDURL+"/api/chats/group",reqbody,config);
+      const results=await axios.post(`${process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:''}/api/chats/group`,reqbody,config);
       if(results.status>=400)
         throw new Error(results.data);
       toast({
