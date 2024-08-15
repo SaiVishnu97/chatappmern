@@ -28,7 +28,7 @@ export const ChatsListItem:React.FC<ChatsListItemProps> = ({chatdetails,setSelec
       </div>
       <div>
       <div style={{marginTop:'15%',fontWeight:'700',fontSize:'large'}}>{userincaps}</div>
-      {chatdetails.latestMessage?((chatdetails.latestMessage.sender._id===currentuser._id?'You':userincaps)+' : '+chatdetails.latestMessage?.content.slice(0,20)):''}
+      {chatdetails.latestMessage?((chatdetails.latestMessage.sender._id===currentuser._id?'You':userincaps)+' : '+chatdetails.latestMessage.content.slice(0,20)):''}
       </div>
     </div>
   )

@@ -41,6 +41,8 @@ export interface ServerToClientEvents {
     OthersTyping: (currentuser: CurrentUser,currentchat: Chat)=>void
     OthersStopTyping: (currentuser: CurrentUser)=> void
     MessageReceived: (messagedetails: Message,senderchat: Chat)=> void
+    adminDeletedChat: (adminname: string,deletedchat: Chat)=>void;
+
   }
   
   export interface ClientToServerEvents {
@@ -48,5 +50,7 @@ export interface ServerToClientEvents {
     isTyping: (currentchatwithuser: string)=> void;
     stopTyping: (currentchatwithuser: string)=>void;
     newMessageSent: (wholemessagewithchat: string)=>void;
+    groupChatDeleted: (currentchatwithuser: string)=>void;
+
   }
   

@@ -15,9 +15,10 @@ import UserListItem from 'components/miscellenous/UserListItem'
 
 import { Button } from '@chakra-ui/react'
 import StyledInput from 'components/Elements/StyledInput'
-import { updateChatData,addNewProperties, useAppDispatch } from 'state'
+import { updateChatData,addNewProperties, useAppDispatch, reShuffleMyChatsAfterDeletion } from 'state'
 import useAutoComplete from 'components/miscellenous/useAutoComplete'
-import { Chat, User } from 'CommonTypes'
+import { Chat, CurrentUser, User } from 'CommonTypes'
+import { socket } from 'Pages/ChatPage'
 
 type GroupChatProfileProps={
     isOpen: boolean;
@@ -59,7 +60,7 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
             }
             if(chatname==='')
               throw new Error('Please provide the new group chat name');
-            const results=await axios.post(process.env.REACT_APP_BACKENDURL+"/api/chats/rename",reqbody,config);
+            const results=await axios.post("/api/chats/rename",reqbody,config);
             if(results.status>=400)
               throw new Error(results.data);
             toast({
@@ -106,7 +107,7 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
         }
         if(chatname==='')
           throw new Error('Please provide the group chat name');
-        const results=await axios.post(process.env.REACT_APP_BACKENDURL+"/api/chats/remove",reqbody,config);
+        const results=await axios.post("/api/chats/remove",reqbody,config);
         if(results.status>=400)
           throw new Error(results.data);
         toast({
@@ -147,7 +148,7 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
         }
         if(chatname==='')
           throw new Error('Please provide the group chat name');
-        const results=await axios.post(process.env.REACT_APP_BACKENDURL+"/api/chats/add",reqbody,config);
+        const results=await axios.post("/api/chats/add",reqbody,config);
         if(results.status>=400)
           throw new Error(results.data);
         toast({
@@ -164,6 +165,50 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
       } catch (error: any) {
         toast({
               title: 'Failed to create the group chat',
+              description: error.message,
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+              position: 'top'
+            });
+      }
+      finally{
+        setLoading(false);
+      }
+    }
+    const deleteCurrentChat=async (currentuserdetails: CurrentUser)=>
+    {
+      try {
+        setLoading(true)
+        const reqbody={
+          userid: currentuserdetails._id,
+          chatid: groupchatdetails._id
+        }
+        const config={
+          headers:{
+            authorization: "Bearer "+currentuserdetails.token
+          },
+        }
+        if(chatname==='')
+          throw new Error('Please provide the group chat name');
+        const results=await axios.delete("/api/chats/deletechat",{data:reqbody,...config});
+        if(results.status>=400)
+          throw new Error(results.data);
+        toast({
+          title: `Admin deleted the group chat successfully`,
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'top'
+  
+        });
+        dispatch(addNewProperties({groupchatdata:null}));
+        dispatch(addNewProperties({currentchat: null}));
+        dispatch(reShuffleMyChatsAfterDeletion(groupchatdetails));
+        socket.emit('groupChatDeleted',JSON.stringify({currentchat:groupchatdetails,currentuser:currentuserdetails}));
+      } catch (error: any) {
+        toast({
+              title: 'Failed to delete the group chat',
               description: error.message,
               status: 'error',
               duration: 5000,
@@ -241,7 +286,8 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
             {loading?<Spinner/>:<Button colorScheme='blue' style={{width:'fit-content'}} onClick={addUsersToTheGroup}>
             Add users
             </Button>}
-            {/* {!loading&&!isAdmin&&<Button colorScheme='red' style={{width:'fit-content'}} onClick={()=>removeExistingUsers(currentuserdetails)}></Button>} */}
+            {!loading&&isAdmin?<Button colorScheme='red' style={{width:'fit-content'}} onClick={()=>deleteCurrentChat(currentuserdetails)}>Delete the group</Button>
+            :<Button colorScheme='red' style={{width:'fit-content'}} onClick={()=>removeExistingUsers(currentuserdetails)}>Exit from the group</Button>}
         </ModalFooter>
         </ModalContent>
     </Modal>

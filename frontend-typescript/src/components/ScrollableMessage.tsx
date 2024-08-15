@@ -39,7 +39,6 @@ const ScrollableMessage:React.FC<ScrollableMessage> = ({messages,currentchatid,t
      }
 
     },[currentchatid,messages,typinguser])
-    console.log(typinguser)
   return (
     <div style={{overflowY:'scroll'}} >
       {messages &&

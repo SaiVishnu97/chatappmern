@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { Server } from "socket.io";
@@ -8,6 +8,7 @@ import { userRouter } from "./routes/userRoutes";
 import { MessageRouter } from "./routes/messageRoutes";
 import { errorHandler, notFound } from "./middleware/errormiddleware";
 import { ChatType, ClientToServerEvents, CurrentUserType, MessageType, ServerToClientEvents, UserType } from "CommonTypes";
+import path from "path";
 
 const app: Express=express();
 app.use(cors());
@@ -16,6 +17,8 @@ app.use(express.urlencoded());
 dotenv.config();
 connectDB();
 
+console.log(path.join(path.resolve(),'..'));
+const __currdir=path.resolve();
 
 app.use('/api/chats',ChatRouter)
 
@@ -26,7 +29,22 @@ app.use("/api/messages",MessageRouter);
 
 
 
-
+if(process.env.NODE_ENV==='Production')
+    {
+        app.use(express.static(path.join(__currdir,'..','frontend-typescript','build')));
+        app.set('frontend',path.join(__currdir,'..','frontend-typescript','build'));
+        app.get('*',(_,res: Response)=>{
+            res.sendFile(app.get('frontend')+'/index.html');
+        })
+    }
+if(process.env.NODE_ENV==='productiondocker')
+    {
+        app.use(express.static(path.join(__currdir,'frontendbuild')));
+        app.set('frontend',path.join(__currdir,'frontendbuild'));
+        app.get('*',(_,res: Response)=>{
+            res.sendFile(app.get('frontend')+'/index.html');
+        })
+    }
 app.all('*',notFound);
 app.use(errorHandler);
 let server=app.listen(5000,()=>{
@@ -74,6 +92,14 @@ io.on('connection',(socket)=>{
         currentchat.users.forEach((user:UserType)=> {
             if(user._id!==messagedetails.sender._id)
             socket.to(user._id).emit('MessageReceived',messagedetails,currentchat);
+
+        });
+    })
+    socket.on('groupChatDeleted',(currentchatwithuser: string)=>{
+        const {currentchat,currentuser}:{currentchat:ChatType,currentuser: CurrentUserType} = JSON.parse(currentchatwithuser);
+        currentchat.users.forEach((user:UserType) => {
+            if(user._id!==currentuser._id)
+            socket.to(user._id).emit('adminDeletedChat',currentuser.name,currentchat);
 
         });
     })

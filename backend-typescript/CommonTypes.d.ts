@@ -59,9 +59,10 @@ export interface ServerToClientEvents {
 
   ConnectionEstablishmentFromTheServer:()=> void;
   ChatConnectionAcknowledgement: ()=>void;
-  OthersTyping: (currentuser: CurrentUserType,currentchat: ChatType)=>void
-  OthersStopTyping: (currentuser: CurrentUserType)=> void
-  MessageReceived: (messagedetails: MessageType,senderchat: ChatType)=> void
+  OthersTyping: (currentuser: CurrentUserType,currentchat: ChatType)=>void;
+  OthersStopTyping: (currentuser: CurrentUserType)=> void;
+  MessageReceived: (messagedetails: MessageType,senderchat: ChatType)=> void;
+  adminDeletedChat: (adminname: string,deletedchat: ChatType)=>void;
 }
 
 export interface ClientToServerEvents {
@@ -69,6 +70,7 @@ export interface ClientToServerEvents {
   isTyping: (currentchatwithuser: string)=> void;
   stopTyping: (currentchatwithuser: string)=>void;
   newMessageSent: (wholemessagewithchat: string)=>void;
+  groupChatDeleted: (currentchatwithuser: string)=>void;
 }
 
 interface SocketData {

@@ -17,7 +17,7 @@ const ChatArea = () => {
   const [typinguser,setTypingUser]=React.useState<null|User>(null);
   const currentuserdetails=JSON.parse(localStorage.getItem('userinfo') as string);
   const dispatch=useAppDispatch();
-  const currentchat=useAppSelector((state)=>state.chatapp.currentchat)
+  const currentchat=useAppSelector((state)=>(state.chatapp.currentchat as Chat))
   const toast=useToast();
   const previoustime=React.useRef(Date.now());
   const handleInput=(event: React.ChangeEvent<HTMLInputElement>)=>{
@@ -47,7 +47,7 @@ const ChatArea = () => {
         }
       }
       const reqbody={
-        chatid: currentchat?._id,
+        chatid: currentchat._id,
         content: newmessage
       }
       const result=await axios.post('/api/messages',reqbody,config);
@@ -72,13 +72,13 @@ const ChatArea = () => {
     }
   }
   const handleMessageReceiving=(messagedetails: Message,senderchat: Chat)=>{
-     if(messagedetails.chat._id===currentchat?._id&&messagedetails.sender._id!==currentuserdetails._id)
+     if(messagedetails.chat._id===currentchat._id&&messagedetails.sender._id!==currentuserdetails._id)
     {
         setAllMessages((prevstate)=>[...prevstate,messagedetails]);
     }
   }
   const handleOthersTyping=(typinguser: User,typingchat: Chat)=>{
-    if(typingchat._id===currentchat?._id&&typinguser._id!==currentuserdetails._id)
+    if(typingchat._id===currentchat._id&&typinguser._id!==currentuserdetails._id)
       {
         setTypingUser({...typinguser});   
       }
@@ -91,7 +91,7 @@ const ChatArea = () => {
         }
       }
      
-      const result=await axios.get('/api/messages/'+currentchat?._id,config);
+      const result=await axios.get('/api/messages/'+currentchat._id,config);
       if(result.status>=400)
         throw new Error("Unable to fetch the chat messages");
        setAllMessages(result.data);
@@ -118,11 +118,11 @@ const ChatArea = () => {
       messageevent.off('MessageReceived',handleMessageReceiving);
     }
     
-  },[currentchat?._id]);
+  },[currentchat._id]);
   return (
     <>
     <div className='chatarea'>
-    <ScrollableMessage messages={allmessages} currentchatid={currentchat?._id} typinguser={typinguser}/>
+    <ScrollableMessage messages={allmessages} currentchatid={currentchat._id} typinguser={typinguser}/>
     </div>
 
     <div className="chatbox-input">

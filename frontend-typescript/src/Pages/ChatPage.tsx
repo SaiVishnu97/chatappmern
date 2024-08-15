@@ -5,21 +5,34 @@ import Header from 'components/Header/Header'
 import ChatBox from 'components/ChatBox';
 import './Pages.css'
 import { io, Socket } from 'socket.io-client';
-import { Chat, ClientToServerEvents, Message, ServerToClientEvents } from 'CommonTypes';
-import { addNewProperties, useAppDispatch } from 'state/index';
-export let socket:Socket<ServerToClientEvents, ClientToServerEvents>=io(process.env.REACT_APP_BACKENDURL as string);
-
+import { ClientToServerEvents, ServerToClientEvents } from 'CommonTypes';
+import { addNewProperties, reShuffleMyChatsAfterDeletion, useAppDispatch } from 'state/index';
+import { useToast } from '@chakra-ui/react';
+export let socket:Socket<ServerToClientEvents, ClientToServerEvents>=io('http://localhost:5000');
 
 const ChatPage = () => {
 
 const [selectallchats,setSelectAllChats]=React.useState<boolean>(true);
-const currentuserdetails=React.useMemo(()=>JSON.parse(localStorage.getItem('userinfo') as string),[]);
 
+const currentuserdetails=React.useMemo(()=>JSON.parse(localStorage.getItem('userinfo') as string),[]);
+const toast = useToast();
+const dispatch=useAppDispatch();
 React.useEffect(()=>{
   socket.on('ConnectionEstablishmentFromTheServer',()=>{
     console.log('connection establishment from the server')
     socket.emit('userSetup',currentuserdetails._id);
 
+  });
+  socket.on('adminDeletedChat',(adminname,deletedchat)=>{
+    toast({
+      title: 'Admin '+adminname+' deleted the group chat '+deletedchat.chatName,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+      position: 'top'
+    });
+    dispatch(addNewProperties({currentchat:null}));
+    dispatch(reShuffleMyChatsAfterDeletion(deletedchat));
   })
 },[]);
   return (

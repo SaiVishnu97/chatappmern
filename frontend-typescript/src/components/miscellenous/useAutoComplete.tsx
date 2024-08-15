@@ -17,7 +17,7 @@ const useAutoComplete = () => {
   const deBouncedListUsers=debounce(async (signal)=>{
     try{
       setLoading(true);
-        const result = await axios.get(process.env.REACT_APP_BACKENDURL+'/api/users/login',{
+        const result = await axios.get('/api/users/login',{
           headers:{
             authorization: "Bearer "+currentuserdetails.token
           },

@@ -1,9 +1,8 @@
 import { configureStore ,createSlice} from '@reduxjs/toolkit'
-import { Chat, ClientToServerEvents, ServerToClientEvents, User } from 'CommonTypes'
+import { Chat, User } from 'CommonTypes'
 import { useStore } from 'react-redux'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { Socket } from 'socket.io-client'
 
   
 
@@ -16,7 +15,7 @@ export type InitialStateType={
     messagereceived: boolean,
 }
 const initialState:Partial<InitialStateType> = {
-    mychats:[],
+    mychats:undefined,
     frienduser:null,
     isGroupChatSelected: false,
     groupchatdata:null,
@@ -34,8 +33,9 @@ const chatSlice=createSlice({
         },
         removeProperties:(state,action:{payload:string,type:string})=>{
             const newstate=state;
+            type removedproptype=keyof InitialStateType
             if(action.payload)
-            delete newstate[action.payload as keyof InitialStateType];
+            delete newstate[action.payload as removedproptype];
             return newstate;
         },
         addNewChats:(state,action:{type:string,payload: Chat})=>{
@@ -66,11 +66,22 @@ const chatSlice=createSlice({
             currentstatechats.unshift(selectedChat);
             state.mychats=currentstatechats;
         }
+        },
+        reShuffleMyChatsAfterDeletion:(state,action:{type:string,payload: Chat})=>{
+            if(state.mychats)
+            {
+                const chatindex=state.mychats.findIndex(val=>val._id===action.payload._id);
+                const currentstatechats=JSON.parse(JSON.stringify(state.mychats))
+                if(chatindex!==-1)
+                  currentstatechats.splice(chatindex,1);
+                
+                state.mychats=currentstatechats;
+            }
         }
         
     }
 });
-export const {addNewProperties,removeProperties,addNewChats,updateChatData,reShuffleMyChats }=chatSlice.actions;
+export const {addNewProperties,removeProperties,addNewChats,updateChatData,reShuffleMyChats,reShuffleMyChatsAfterDeletion }=chatSlice.actions;
 export const store = configureStore({
   reducer: {chatapp:chatSlice.reducer},
 });

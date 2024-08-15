@@ -32,7 +32,7 @@ const MyChats:React.FC<MyChatsProps> = ({setSelectAllChats}) => {
           authorization: "Bearer "+currentuserdetails.token
         }
       }
-      const results=await axios.get(process.env.REACT_APP_BACKENDURL+"/api/chats",config);
+      const results=await axios.get("/api/chats",config);
       if(results.status>=400)
         throw new Error("Invalid chats")
       dispatch(addNewProperties({mychats:results.data}));
@@ -80,7 +80,7 @@ const MyChats:React.FC<MyChatsProps> = ({setSelectAllChats}) => {
       </div>
       <div className='MyChatsList'>
       
-      {Boolean(mychats)&&mychats?.map((val)=>{
+      {mychats&&mychats.map((val)=>{
         if(!val.isGroupChat)
         return <ChatsListItem key={val._id} chatdetails={val} setSelectAllChats={setSelectAllChats}/>
         return <GroupChatsListItem key={val._id} groupchatdetails={val} setSelectAllChats={setSelectAllChats}/>})

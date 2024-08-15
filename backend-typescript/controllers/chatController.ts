@@ -3,6 +3,7 @@ import { Request,Response } from "express-serve-static-core";
 import Chat from "../models/chatmodel";
 import User from "../models/usermodel";
 import { Document } from "mongoose";
+import Message from "../models/messagemodel";
 
 
 const accessChat = async (req: Request<{},any,{userId:string}>, res:Response ) => {
@@ -166,4 +167,16 @@ const addGroup = async (req: Request, res: Response) => {
   res.status(200).json(chatobj);
 }
 
-export { accessChat, fetchChats, createGroupChat, renameGroup, removeGroup, addGroup };
+const deleteChatPermanently=async (req:Request<{},{chatid:string,userid:string}>,res: Response)=>
+{
+  const {chatid,userid}=req.body;
+  const checkifadmin:ChatType|null=await Chat.findById(chatid).where('groupAdmin').equals(userid);
+  if(checkifadmin===null)
+  {
+    res.status(403).send('A non-group admin cannot delete the group');
+  }
+  const chatdeleted = await Chat.findByIdAndDelete(chatid);
+  await Message.deleteMany({chat: chatid});
+  res.status(200).json({chatdeleted});
+}
+export { accessChat, fetchChats, createGroupChat, renameGroup, removeGroup, addGroup,deleteChatPermanently };
