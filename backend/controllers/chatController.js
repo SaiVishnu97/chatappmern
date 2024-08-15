@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const Chat=require('../models/ChatModel');
 const User=require("../models/UserModel");
 const accessChat=asyncHandler(async(req,res)=>{
+  try{
     const { userId } = req.body;
 
   if (!userId) {
@@ -18,7 +19,6 @@ const accessChat=asyncHandler(async(req,res)=>{
     .populate("users", "-password")
     .populate("latestMessage");
 
-    console.log(isChat);
   isChat = await User.populate(isChat, {
     path: "latestMessage.sender",
     select: "name pic email",
@@ -32,19 +32,22 @@ const accessChat=asyncHandler(async(req,res)=>{
       isGroupChat: false,
       users: [req.user._id, userId],
     };
-    console.log("chatData",chatData)
-    try {
       const createdChat = await Chat.create(chatData);
-      const FullChat = await Chat.findOne({ _id: createdChat._id }).populate(
+      let FullChat = await Chat.find({ _id: createdChat._id }).populate(
         "users",
         "-password"
-      );
-      res.status(200).json(FullChat);
+      ).populate("latestMessage");
+      FullChat=await User.populate(FullChat, {
+        path: "latestMessage.sender",
+        select: "name pic email",
+      });
+      res.status(200).json(FullChat[0]);
+    }
     } catch (error) {
       res.status(400);
       throw new Error(error.message);
     }
-  }
+  
 })
 
 const fetchChats=asyncHandler(async(req,res)=>{
@@ -74,7 +77,7 @@ const createGroupChat=asyncHandler(async(req,res)=>{
       res.status(400);
       throw new Error("Please provide both the chat name and the users for the group chat");
     }
-    let users =JSON.parse(req.body.users);
+    let users =req.body.users;
     if(users.length<2)
     {
       return res
@@ -89,7 +92,7 @@ const createGroupChat=asyncHandler(async(req,res)=>{
       groupAdmin: req.user._id,
       users
     });
-    const fullchat=await Chat.findOne({_id:newgroupchat._id})
+    let fullchat=await Chat.findOne({_id:newgroupchat._id})
                          .populate("users","-password")
                          .populate("groupAdmin","-password");
     res.status(200).json(fullchat);

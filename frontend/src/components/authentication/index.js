@@ -13,8 +13,8 @@ export const Authentication = () => {
         </div>
         <div className='loginsection'>
         <div className='selecttype'>
-            <span onClick={()=>setIsLogin(true)}>Login</span>
-            <span onClick={()=>setIsLogin(false)}>SignUp</span>
+            <span onClick={()=>setIsLogin(true)} className={`${isLogin?'AuthTypeSelected':''}`}>Login</span>
+            <span onClick={()=>setIsLogin(false)} className={`${!isLogin?'AuthTypeSelected':''}`}>SignUp</span>
         </div>
         {isLogin?<Login/>:<SignUp/>}
         </div>

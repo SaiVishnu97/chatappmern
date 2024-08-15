@@ -1,0 +1,115 @@
+.MyChats
+{
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    margin: 2% 0% 0% 2%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    flex-grow: 1;
+    -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ChatAreaParent
+{
+    height: 100%;
+}
+.chatarea
+{
+    background-color: rgb(232,232,232);
+    border-radius: 10px;
+    margin: 2%;
+    height: 85%;
+    overflow-y: scroll !important; 
+}
+.MyChatsHeader
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3%;
+}
+.MyChatsHeader button
+{
+    background-color: rgb(237,242,247);
+    width: fit-content;
+    color: black;
+    padding: 2%;
+
+}
+.MyChatsHeader button:hover
+{
+    background-color: rgb(206, 210, 214);
+
+}
+.MyChatsList
+{
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    overflow-y:scroll ;
+}
+.ChatBox
+{
+    background-color: white;
+    border-radius: 10px;
+    margin: 2% 0% 0% 2%;
+    width: 95% !important;
+    /* overflow-y: scroll; */
+    height: 77% !important;
+}
+.chatbox-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    flex-direction: column;
+    width: 63%;
+}
+i{
+    cursor: pointer;
+}
+
+.sendicon
+{
+    position: relative;
+    font-size: larger;
+    bottom: 50px;
+    left: 60vw;
+    cursor: pointer;
+}
+.chatbox-input button:hover {
+    background-color: #0056b3;
+}
+.InputStyles
+{
+    padding: 10px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: "Roboto", sans-serif;
+    outline: none !important;
+    font-size: 16px !important;
+    width: 80vw !important;
+}
+@media  (max-width: 768px) {
+    .sendicon
+    {  
+        left: 90vw;
+    }
+
+    .InputStyles
+    {
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        font-family: "Roboto", sans-serif;
+        outline: none;
+        font-size: 16px;
+        width: 100vw !important; 
+    }
+    .chatarea
+    {
+        height: 90%;
+    }
+}

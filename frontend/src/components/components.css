@@ -1,0 +1,141 @@
+.MyChats
+{
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    margin: 2% 0% 0% 2%;
+    /* overflow-y: scroll; */
+    overflow-x: hidden ;
+    flex-grow: 1;
+}
+.chatarea
+{
+    background-color: rgb(232,232,232);
+    border-radius: 10px;
+    margin: 2%;
+    height: 65%;
+    /* overflow-y: scroll; */
+}
+.MyChatsHeader
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3%;
+}
+.MyChatsHeader button
+{
+    background-color: rgb(237,242,247);
+    width: fit-content;
+    color: black;
+    padding: 2%;
+
+}
+.MyChatsHeader button:hover
+{
+    background-color: rgb(206, 210, 214);
+
+}
+.MyChatsList
+{
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.ChatBox
+{
+    background-color: white;
+    border-radius: 10px;
+    margin: 2% 0% 0% 2%;
+    flex-grow: 3;
+    width: 35% !important;
+    /* overflow-y: scroll; */
+    height: 100%;
+}
+.chatbox-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    top: 83vh;
+    width: 63%;
+}
+i{
+    cursor: pointer;
+}
+
+
+.chatbox-input button {
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.sendicon
+{
+    position: fixed;
+    top: 87vh;
+    font-size: larger;
+    right: 30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+
+}
+.chatbox-input button:hover {
+    background-color: #0056b3;
+}
+.InputStyles
+{
+    padding: 10px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-family: "Roboto", sans-serif;
+    outline: none !important;
+    font-size: 16px !important;
+    width: 80vw !important;
+}
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .chatbox-input {
+        display: flex;
+        border-top: 1px solid #ddd;
+        position: fixed;
+        top: 80vh;
+        width: 100vw;
+    }
+    .sendicon
+    {
+        position: fixed;
+        top: 83vh;
+        font-size: larger;
+        right: 30px;
+        transform: translateY(-50%);
+        cursor: pointer;
+
+    }
+    .InputStyles
+    {
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        font-family: "Roboto", sans-serif;
+        outline: none;
+        font-size: 16px;
+        width: 100vw !important; 
+    }
+    .chatarea
+    {
+        height: 65%;
+    }
+}
+@media (max-width: 500px)
+{
+    .chatarea
+    {
+        height: 70%;
+    }
+}

@@ -1,22 +1,33 @@
 import React from 'react'
-import axios from 'axios'
-import SideBar from 'components/miscellenous/SideBar'
 import ChatBox from 'components/ChatBox'
 import MyChats from 'components/MyChats'
-import Header from 'components/miscellenous/Header'
+import Header from 'components/Header/Header'
 
 const ChatPage = () => {
 
-
+const [selectallchats,setSelectAllChats]=React.useState(true);
   return (
+    <>
+    <style>
+      {`
+      .chatsmain
+      {
+      display: flex;
+      justify-content: space-evenly;
+      margin-bottom: 2%;
+      height: 80vh;
+      overflow-y: hidden;
+      }
+      `}
+    </style>
     <div>
         <Header/>
-        <SideBar/>
-        <div style={{display:'flex',justifyContent:'space-between'}}>
-        <ChatBox/>
-        <MyChats/>
+        <div className='chatsmain'>
+          <MyChats selectallchats={selectallchats} setSelectAllChats={setSelectAllChats}/>
+          <ChatBox selectallchats={selectallchats} setSelectAllChats={setSelectAllChats}/>
         </div>
     </div>
+    </>
   )
 }
 
