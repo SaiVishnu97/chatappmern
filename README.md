@@ -15,7 +15,7 @@ This is a real-time chat application built using TypeScript, React, Socket.io, a
 - **Frontend**: TypeScript, React, CSS, Socket.io-client,ChakraUI,Redux toolkit
 - **Backend**: TypeScript, Node.js, Express, Socket.io
 - **Database**: MongoDB (user-provided)
-- **Deployment**:
+- **Deployment**: https://chatappmern-dj8x.onrender.com
 
 ## 🚀 Getting Started
 
