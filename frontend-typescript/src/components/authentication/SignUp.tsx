@@ -124,7 +124,7 @@ const SignUp = () => {
          <div style={{color:'red'}}>{formik.errors.confirmpassword}</div>
        ) : null}
         <label htmlFor='uploadpic'>Upload your profile pic:</label>
-        <StyledInput onChange={imageUpload} type='file' id='uploadpic' name='file' accept="image/*"/>
+        <StyledInput onChange={imageUpload} style={{width:'fit-content'}} type='file' id='uploadpic' name='file' accept="image/*"/>
         <Button loading={loading} style={{backgroundColor:'rgb(49,130,206)'}} type="submit">SignUp</Button>
         </form>
     </div>
