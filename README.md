@@ -22,7 +22,7 @@ This is a real-time chat application built using TypeScript, React, Socket.io, a
 
 Follow these steps to set up and run the application on your local machine.
 
-### 1. Clone the Repository
+1. **Clone the Repository**:
 ```bash
 git clone https://github.com/SaiVishnu97/chatappmern.git
 ```
@@ -40,10 +40,12 @@ git clone https://github.com/SaiVishnu97/chatappmern.git
     ```
 4. **Install Dependencies for the backend**:
   The backend needs the MongoDB database which the user has to use on his own, however set these environment variables by create a .env file in the backend-typescript folder
+  ```plaintext
   BACKEND_URL=http://localhost:5000
   MONGO_URI=''
   NODE_ENV=Production
   PORT=5000
+  ```
     ```bash
     cd chatappmern/backend-typescript
     npm install
