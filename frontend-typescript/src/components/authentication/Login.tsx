@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { addNewProperties, useAppDispatch } from 'state';
 import { LoginInitialValues } from './AuthenticationTypesDeclarations'
 
-
+console.log(process.env.REACT_APP_BACKENDURL)
 interface User {
   _id: string;
   name: string;
@@ -78,7 +78,7 @@ const formik=useFormik({
 const guestDetails=async ()=>{
   try{
         setLoading(true)
-        const response=await fetch('http://localhost:5000/api/users/login',{headers:{
+        const response=await fetch(`${process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:''}/api/users/login`,{headers:{
       'Content-Type':'application/json', 
     },
     method: 'POST',

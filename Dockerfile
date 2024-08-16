@@ -3,6 +3,7 @@ WORKDIR /app
 RUN npm install -g typescript
 COPY frontend-typescript/package*.json .
 RUN npm install
+ENV REACT_APP_BACKENDURL=http://localhost:80
 COPY frontend-typescript/. .
 RUN npm run build
 
@@ -11,6 +12,7 @@ WORKDIR /app
 ENV NODE_ENV=productiondocker
 ENV BACKEND_URL=http://localhost:5000
 ENV MONGO_URI=mongodb+srv://vishnu:Mongodbatlas@cluster0.4wbpkmt.mongodb.net/ChatAppDB
+ENV PORT=5000
 EXPOSE 5000
 COPY backend-typescript/package*.json .
 RUN npm install

@@ -33,7 +33,7 @@ return (
         <ModalBody>
             <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
             <div>
-                <img src={userdetails.pic}/>
+                <img src={userdetails.pic} height='200px' width='200px'/>
             </div>
             <div style={{fontSize:'1.5em' ,fontWeight:'700'}}>Email: {userdetails.email}
             </div>

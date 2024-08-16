@@ -5,7 +5,10 @@ import { Routes,Route } from 'react-router-dom';
 import ChatPage from 'Pages/ChatPage';
 
 if(process.env.REACT_APP_BACKENDURL)
-  axios.defaults.baseURL = 'http://localhost:5000'
+  axios.defaults.baseURL = process.env.REACT_APP_BACKENDURL
+else
+  axios.defaults.baseURL='http://localhost:5000'
+console.log(process.env.REACT_APP_BACKENDURL)
 function App() {
   return (
     <div className="App">
