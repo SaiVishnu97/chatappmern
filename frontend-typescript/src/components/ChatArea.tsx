@@ -7,7 +7,6 @@ import ScrollableMessage from './ScrollableMessage';
 import { updateChatData, useAppDispatch, useAppSelector } from 'state';
 import { Chat, Message, User } from 'CommonTypes';
 import { messageevent } from './MyChats';
-import { socket } from 'Pages/ChatPage';
 
 // let socket:Socket<ServerToClientEvents, ClientToServerEvents>=io(process.env.REACT_APP_BACKENDURL as string);
 
@@ -19,17 +18,19 @@ const ChatArea = () => {
   const dispatch=useAppDispatch();
   const currentchat=useAppSelector((state)=>(state.chatapp.currentchat as Chat))
   const toast=useToast();
+  let {socket}= useAppSelector((state)=>state.chatapp)
+
   const previoustime=React.useRef(Date.now());
   const handleInput=(event: React.ChangeEvent<HTMLInputElement>)=>{
      setNewMessage(event.target.value );
-     socket.emit('isTyping',JSON.stringify({currentchat,currentuser:currentuserdetails}));
+     socket?.emit('isTyping',JSON.stringify({currentchat,currentuser:currentuserdetails}));
      const timeout=3000;
      previoustime.current=Date.now();
      setTimeout(()=>{
       let currenttime=Date.now();
       if(currenttime-previoustime.current>=timeout)
       {
-        socket.emit('stopTyping',JSON.stringify({currentchat,currentuser:currentuserdetails}));
+        socket?.emit('stopTyping',JSON.stringify({currentchat,currentuser:currentuserdetails}));
       }
       },timeout)
   }
@@ -58,7 +59,7 @@ const ChatArea = () => {
       const updatedcurrentchat=JSON.parse(JSON.stringify(currentchat))
       updatedcurrentchat.latestMessage=result.data;
       dispatch(updateChatData(updatedcurrentchat));
-      socket.emit('newMessageSent',JSON.stringify({currentchat:updatedcurrentchat,messagedetails:result.data}))
+      socket?.emit('newMessageSent',JSON.stringify({currentchat:updatedcurrentchat,messagedetails:result.data}))
       setAllMessages([...allmessages,result.data]);
     } catch (error: any) {
       toast({
@@ -109,11 +110,11 @@ const ChatArea = () => {
   
   React.useEffect(()=>{
     fetchAllMessages();
-    socket.on('ChatConnectionAcknowledgement',()=>console.log('Chat connection acknowlegement'));
+    socket?.on('ChatConnectionAcknowledgement',()=>console.log('Chat connection acknowlegement'));
 
     messageevent.on('MessageReceived',handleMessageReceiving);
-    socket.on('OthersTyping',handleOthersTyping);
-    socket.on('OthersStopTyping',handleStopTyping);
+    socket?.on('OthersTyping',handleOthersTyping);
+    socket?.on('OthersStopTyping',handleStopTyping);
     return ()=>{
       messageevent.off('MessageReceived',handleMessageReceiving);
     }

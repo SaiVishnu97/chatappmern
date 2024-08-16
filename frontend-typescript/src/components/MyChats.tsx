@@ -9,7 +9,6 @@ import Button from './Elements/Button';
 import GroupChatModal from './miscellenous/GroupChatModal';
 import { Chat, User,Message, } from 'CommonTypes';
 import EventEmitter from 'events';
-import { socket } from 'Pages/ChatPage';
 
 export const messageevent=new EventEmitter();
 type MyChatsProps={
@@ -23,6 +22,7 @@ const MyChats:React.FC<MyChatsProps> = ({setSelectAllChats}) => {
   const currentuserdetails=React.useMemo(()=>JSON.parse(localStorage.getItem('userinfo') as string),[]);
   const toast=useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  let {socket}= useAppSelector((state)=>state.chatapp)
 
   const fetchCurrentUserChats=async ()=>{
     try{
@@ -61,10 +61,10 @@ const MyChats:React.FC<MyChatsProps> = ({setSelectAllChats}) => {
    }
   React.useEffect(()=>{
     fetchCurrentUserChats();
-    socket.on('MessageReceived',handleMessageReceiving);
+    socket?.on('MessageReceived',handleMessageReceiving);
 
     return ()=>{
-      socket.off('MessageReceived',handleMessageReceiving);
+      socket?.off('MessageReceived',handleMessageReceiving);
     }
   },[])
   

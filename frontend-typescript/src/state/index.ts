@@ -1,8 +1,9 @@
 import { configureStore ,createSlice} from '@reduxjs/toolkit'
-import { Chat, User } from 'CommonTypes'
+import { Chat, ClientToServerEvents, ServerToClientEvents, User } from 'CommonTypes'
 import { useStore } from 'react-redux'
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { Socket } from 'socket.io-client'
 
   
 
@@ -13,6 +14,7 @@ export type InitialStateType={
     groupchatdata:Chat | null,
     currentchat:null | Chat,
     messagereceived: boolean,
+    socket: Socket<ServerToClientEvents, ClientToServerEvents>
 }
 const initialState:Partial<InitialStateType> = {
     mychats:undefined,
@@ -21,6 +23,7 @@ const initialState:Partial<InitialStateType> = {
     groupchatdata:null,
     currentchat:null,
     messagereceived: false,
+    socket: undefined
 }
 
 const chatSlice=createSlice({

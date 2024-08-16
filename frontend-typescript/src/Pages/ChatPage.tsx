@@ -6,9 +6,8 @@ import ChatBox from 'components/ChatBox';
 import './Pages.css'
 import { io, Socket } from 'socket.io-client';
 import { ClientToServerEvents, ServerToClientEvents } from 'CommonTypes';
-import { addNewProperties, reShuffleMyChatsAfterDeletion, useAppDispatch } from 'state/index';
+import { addNewProperties, reShuffleMyChatsAfterDeletion, useAppDispatch, useAppSelector } from 'state/index';
 import { useToast } from '@chakra-ui/react';
-export let socket:Socket<ServerToClientEvents, ClientToServerEvents>=io(process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:'');
 
 const ChatPage = () => {
 
@@ -16,11 +15,15 @@ const [selectallchats,setSelectAllChats]=React.useState<boolean>(true);
 
 const currentuserdetails=React.useMemo(()=>JSON.parse(localStorage.getItem('userinfo') as string),[]);
 const toast = useToast();
+let {socket}= useAppSelector((state)=>state.chatapp)
 const dispatch=useAppDispatch();
 React.useEffect(()=>{
+
+  socket=io(process.env.REACT_APP_BACKENDURL?process.env.REACT_APP_BACKENDURL:'')
+  dispatch(addNewProperties({socket}))
   socket.on('ConnectionEstablishmentFromTheServer',()=>{
     console.log('connection establishment from the server')
-    socket.emit('userSetup',currentuserdetails._id);
+    socket?.emit('userSetup',currentuserdetails._id);
 
   });
   socket.on('adminDeletedChat',(adminname,deletedchat)=>{
