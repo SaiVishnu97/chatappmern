@@ -12,11 +12,10 @@ This is a real-time chat application built using TypeScript, React, Socket.io, a
 
 ## 🛠 Technologies Used
 
-- **Frontend**: TypeScript, React, CSS, Socket.io-client
+- **Frontend**: TypeScript, React, CSS, Socket.io-client,ChakraUI,Redux toolkit
 - **Backend**: TypeScript, Node.js, Express, Socket.io
-- **Authentication**: Azure AD SAML (optional)
 - **Database**: MongoDB (user-provided)
-- **Deployment**: [Add your deployment details here]
+- **Deployment**:
 
 ## 🚀 Getting Started
 
