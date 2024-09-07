@@ -4,6 +4,7 @@ import {generateToken} from "../config/config"
 
 const  userRegister=async (req: Request,res: Response)=>
 {
+    try{
     const {name,email,password,pic}=req.body;
     if(!(name&&email&&password))
         throw new Error('Provide all of the mandatory fields')
@@ -19,11 +20,13 @@ const  userRegister=async (req: Request,res: Response)=>
             email: newuser.email,
             pic: newuser.pic,
             token: generateToken(newuser._id)});
-    else
-        throw new Error("User account creation failed");
+    }catch (error: any) {
+        res.status(400).send(error.message);
+    }
 }
 const authUser=async (req: Request,res: Response)=>
 {
+    try{
     const {email,password}=req.body;
     const user=await User.findOne({email});
     if(user&&await user.matchPassword(password))
@@ -36,7 +39,11 @@ const authUser=async (req: Request,res: Response)=>
             _id:user._id
         });
     }
-    throw new Error("Invalid credentials")
+    else 
+     throw new Error('User authentication failed');
+   }catch (error: any) {
+    res.status(400).send(error.message);
+}
 }
 
 const allUsers=async(req: Request,res: Response)=>{
@@ -53,9 +60,9 @@ const allUsers=async(req: Request,res: Response)=>{
     }:{};
     const users=await User.find(keyword).find({_id:{$ne:req.user?._id}});
     res.status(200).json(users);
-}catch(err)
+}catch(error: any)
 {
-    throw new Error('Error while fetching the users')
+    res.status(400).send(error.message);
 }
 }
 export {userRegister,authUser,allUsers}

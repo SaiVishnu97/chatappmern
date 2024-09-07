@@ -5,7 +5,7 @@
     margin: 2% 0% 0% 2%;
     flex-grow: 3;
     width: 35% !important;
-    /* overflow-y: scroll; */
+    overflow: hidden;
     height: 100%;
 }
 .MyChatsParent

@@ -50,3 +50,10 @@
     background-color: rgb(190,227,248);
     border: 3px solid rgb(118, 151, 170);
 }
+
+@media (max-width: 568px) {
+    .Authentication
+{
+    grid-template-columns: 300px;
+}
+}

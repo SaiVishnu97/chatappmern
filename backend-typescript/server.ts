@@ -47,12 +47,11 @@ if(process.env.NODE_ENV==='productiondocker')
     }
 app.all('*',notFound);
 app.use(errorHandler);
-let server=app.listen(5000,()=>{
-    console.log("listening on port 5000 click on the url",process.env.BACKEND_URL)
+let server=app.listen(process.env.PORT||5000,()=>{
+    console.log(`listening on port ${process.env.PORT?process.env.PORT:5000} click on the url`,process.env.BACKEND_URL)
 })
 
 const io=new Server<ClientToServerEvents,ServerToClientEvents>(server,{
-    pingTimeout: 60000,
     cors: {
         origin: "*",
       }

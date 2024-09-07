@@ -5,6 +5,7 @@
 .signupform
 {
     margin: 25px;
+    overflow-x: hidden;
 }
 .password-container {
     position: relative;

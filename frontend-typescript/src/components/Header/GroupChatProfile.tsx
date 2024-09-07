@@ -15,10 +15,9 @@ import UserListItem from 'components/miscellenous/UserListItem'
 
 import { Button } from '@chakra-ui/react'
 import StyledInput from 'components/Elements/StyledInput'
-import { updateChatData,addNewProperties, useAppDispatch, reShuffleMyChatsAfterDeletion } from 'state'
+import { updateChatData,addNewProperties, useAppDispatch, reShuffleMyChatsAfterDeletion, useAppSelector } from 'state'
 import useAutoComplete from 'components/miscellenous/useAutoComplete'
 import { Chat, CurrentUser, User } from 'CommonTypes'
-import { socket } from 'Pages/ChatPage'
 
 type GroupChatProfileProps={
     isOpen: boolean;
@@ -29,6 +28,8 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
     const [chatname,setChatName]=React.useState<string>(groupchatdetails.chatName);
     const groupusers=groupchatdetails.users;
     const groupadmin=groupchatdetails.groupAdmin;
+    let {socket}= useAppSelector((state)=>state.chatapp)
+
     const dispatch=useAppDispatch();
     const {
       userquery,
@@ -205,7 +206,7 @@ const GroupChatProfile: React.FC<GroupChatProfileProps> = ({ isOpen, onClose,gro
         dispatch(addNewProperties({groupchatdata:null}));
         dispatch(addNewProperties({currentchat: null}));
         dispatch(reShuffleMyChatsAfterDeletion(groupchatdetails));
-        socket.emit('groupChatDeleted',JSON.stringify({currentchat:groupchatdetails,currentuser:currentuserdetails}));
+        socket?.emit('groupChatDeleted',JSON.stringify({currentchat:groupchatdetails,currentuser:currentuserdetails}));
       } catch (error: any) {
         toast({
               title: 'Failed to delete the group chat',
