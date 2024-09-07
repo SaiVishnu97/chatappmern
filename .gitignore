@@ -5,7 +5,7 @@ build
 # dependencies
 .pnp
 .pnp.js
-
+*.sh
 # testing
 /coverage
 .env
